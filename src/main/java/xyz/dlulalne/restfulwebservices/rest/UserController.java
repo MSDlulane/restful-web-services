@@ -1,16 +1,13 @@
 package xyz.dlulalne.restfulwebservices.rest;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import xyz.dlulalne.restfulwebservices.dao.UserDaoService;
-import xyz.dlulalne.restfulwebservices.exception.ErrorDetails;
 import xyz.dlulalne.restfulwebservices.exception.UserNotFoundException;
 import xyz.dlulalne.restfulwebservices.model.User;
 
 import java.net.URI;
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -43,6 +40,12 @@ public class UserController {
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(savedUser.getId()).toUri();
         return ResponseEntity.created(location).build();
+
+    }
+
+    @DeleteMapping(path = "/users/{id}")
+    public void deleteUser(@PathVariable("id") int id){
+        userDaoService.deleteById(id);
 
     }
 
